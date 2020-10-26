@@ -29,6 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Juergen Hoeller
@@ -59,6 +61,12 @@ class OwnerController {
 	public String initCreationForm(Map<String, Object> model) {
 		Owner owner = new Owner();
 		model.put("owner", owner);
+
+		List<String> activeItems = new ArrayList<String>();
+		activeItems.add("active");
+		activeItems.add("inactive");
+		model.put("activeItems", activeItems);
+
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
@@ -110,6 +118,12 @@ class OwnerController {
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.owners.findById(ownerId);
 		model.addAttribute(owner);
+
+		List<String> activeItems = new ArrayList<String>();
+		activeItems.add("active");
+		activeItems.add("inactive");
+		model.addAttribute("activeItems", activeItems);
+
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
